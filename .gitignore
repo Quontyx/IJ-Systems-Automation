@@ -1,0 +1,5 @@
+backups/*.sql
+*.log
+*.tmp
+*.swp
+.DS_Store

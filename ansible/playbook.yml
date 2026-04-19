@@ -1,0 +1,28 @@
+- name: Preparacion del servidor local
+  hosts: servidor
+  become: true
+
+  vars_files:
+    - group_vars/all.yml
+
+  tasks:
+    - name: Actualizar cache APT
+      apt:
+        update_cache: yes
+
+    - name: Instalar paquetes base
+      apt:
+        name: "{{ paquetes_base }}"
+        state: present
+
+    - name: Asegurar que Docker esta iniciado
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Añadir usuario local al grupo docker
+      user:
+        name: "{{ usuario_local }}"
+        groups: docker
+        append: yes

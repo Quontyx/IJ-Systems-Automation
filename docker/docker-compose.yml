@@ -1,0 +1,118 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      frontend:
+        ipv4_address: 172.30.10.10
+    restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime_kuma_data:/app/data
+    networks:
+      frontend:
+        ipv4_address: 172.30.10.20
+    restart: unless-stopped
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "root1234"
+      MYSQL_DATABASE: "ijdb"
+      MYSQL_USER: "ijuser"
+      MYSQL_PASSWORD: "ijpass123"
+      TZ: "Europe/Madrid"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      backend:
+        ipv4_address: 172.30.20.10
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      monitoring:
+        ipv4_address: 172.30.30.10
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ../monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ../monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      monitoring:
+        ipv4_address: 172.30.30.20
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - --path.rootfs=/host
+    volumes:
+      - /:/host:ro,rslave
+    networks:
+      monitoring:
+        ipv4_address: 172.30.30.30
+    restart: unless-stopped
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    networks:
+      monitoring:
+        ipv4_address: 172.30.30.40
+    restart: unless-stopped
+
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.10.0/24
+
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.20.0/24
+
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.30.0/24
+
+volumes:
+  mariadb_data:
+  grafana_data:
+  uptime_kuma_data:

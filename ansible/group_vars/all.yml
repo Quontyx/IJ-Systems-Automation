@@ -1,0 +1,10 @@
+paquetes_base:
+  - git
+  - curl
+  - wget
+  - unzip
+  - net-tools
+  - htop
+  - tree
+
+usuario_local: user
