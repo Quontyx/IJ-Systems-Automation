@@ -17,7 +17,6 @@ Diseñar e implementar un entorno reproducible sobre Ubuntu que permita:
 - Nginx
 - MariaDB
 - Prometheus
-- Grafana
 - Node Exporter
 - cAdvisor
 - Uptime Kuma
