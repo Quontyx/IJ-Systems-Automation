@@ -26,6 +26,6 @@ Diseñar e implementar un entorno reproducible sobre Ubuntu que permita:
 - `scripts/`: scripts Bash
 - `ansible/`: inventario, variables y playbook
 - `docker/`: Docker Compose, `.env` y contenido web
-- `monitoring/`: Prometheus y Grafana
+- `monitoring/`: Prometheus
 - `docs/`: capturas, pruebas, errores y gráficas
 - `backups/`: copias de seguridad
