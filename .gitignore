@@ -1,5 +1,17 @@
+# Copias de seguridad y archivos generados
 backups/*.sql
 *.log
 *.tmp
 *.swp
 .DS_Store
+
+# Variables locales y credenciales
+.env
+**/.env
+*.env
+docker/.env
+
+# Se permite subir solo plantillas sin contraseñas reales
+!.env.example
+!docker/.env.example
+!*.env.example
