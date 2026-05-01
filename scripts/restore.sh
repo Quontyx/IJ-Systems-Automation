@@ -1,5 +1,7 @@
 #!/bin/bash
-
+set -a
+source "$(dirname "$0")/../docker/.env"
+set +a
 BACKUP_DIR="$HOME/IJ-Systems-Automation/backups"
 
 if [ -z "$1" ]; then
@@ -14,7 +16,7 @@ if [ ! -f "$ARCHIVO" ]; then
     exit 1
 fi
 
-docker exec -i mariadb mariadb -u root -proot1234 ijdb < "$ARCHIVO"
+docker exec -i mariadb mariadb -u root -p"$MYSQL_ROOT_PASSWORD" ijdb < "$ARCHIVO"
 
 if [ $? -eq 0 ]; then
     echo "Restauración completada correctamente"
