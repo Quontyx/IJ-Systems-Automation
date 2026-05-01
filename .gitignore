@@ -15,3 +15,6 @@ docker/.env
 !.env.example
 !docker/.env.example
 !*.env.example
+
+# Copias locales de seguridad
+*.bak
