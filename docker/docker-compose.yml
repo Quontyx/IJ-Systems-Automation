@@ -27,10 +27,10 @@ services:
     image: mariadb:latest
     container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: "root1234"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: "ijdb"
       MYSQL_USER: "ijuser"
-      MYSQL_PASSWORD: "ijpass123"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       TZ: "Europe/Madrid"
     volumes:
       - mariadb_data:/var/lib/mysql
