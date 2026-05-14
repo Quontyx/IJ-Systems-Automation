@@ -19,10 +19,21 @@ docker volume ls
 
 echo
 echo "===== PRUEBAS HTTP ====="
+
+echo "Nginx:"
 curl -I http://localhost || true
-curl -I http://localhost:3000 || true
+
+echo
+echo "Prometheus:"
 curl -I http://localhost:9090 || true
+
+echo
+echo "Uptime Kuma:"
 curl -I http://localhost:3001 || true
+
+echo
+echo "cAdvisor:"
+curl -I http://localhost:8080 || true
 
 echo
 echo "===== FIN DE COMPROBACIONES ====="
