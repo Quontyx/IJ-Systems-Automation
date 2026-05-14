@@ -7,4 +7,4 @@ paquetes_base:
   - htop
   - tree
 
-usuario_local: user
+usuario_local: ubuntu

@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:1.27
     container_name: nginx
     ports:
       - "80:80"
@@ -10,9 +10,14 @@ services:
       frontend:
         ipv4_address: 172.30.10.10
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   uptime-kuma:
-    image: louislam/uptime-kuma:latest
+    image: louislam/uptime-kuma:1.23.17
     container_name: uptime-kuma
     ports:
       - "3001:3001"
@@ -24,7 +29,7 @@ services:
     restart: unless-stopped
 
   mariadb:
-    image: mariadb:latest
+    image: mariadb:11.4
     container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -38,9 +43,14 @@ services:
       backend:
         ipv4_address: 172.30.20.10
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.11.2
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -52,7 +62,7 @@ services:
     restart: unless-stopped
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.11.1
     container_name: node-exporter
     command:
       - --path.rootfs=/host
@@ -64,7 +74,7 @@ services:
     restart: unless-stopped
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
     container_name: cadvisor
     ports:
       - "8080:8080"
