@@ -1,6 +1,10 @@
 # IJ Systems Automation
 
 <p align="center">
+  <img src="docs/logo.jpg" alt="IJ Systems Automation logo" width="160"/>
+</p>
+
+<p align="center">
   Automatización del despliegue y administración de servicios en contenedores — <strong>reproducible, monitorizado y listo para producción</strong>.
 </p>
 
