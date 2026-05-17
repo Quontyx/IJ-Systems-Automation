@@ -205,6 +205,6 @@ Las siguientes mejoras están planificadas como trabajo futuro:
 
 ---
 
-<p align="center">Hecho con ☕ y demasiadas horas de terminal</p>
+<p align="center">Hecho con ☕ y demasiadas horas de terminal y Word</p>
 
 ---
