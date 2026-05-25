@@ -8,3 +8,5 @@ paquetes_base:
   - tree
 
 usuario_local: ubuntu
+repo_url: https://github.com/Quontyx/IJ-Systems-Automation.git
+proyecto_dir: /home/ubuntu/IJ-Systems-Automation
