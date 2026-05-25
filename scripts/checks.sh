@@ -1,4 +1,7 @@
 #!/bin/bash
+set -a
+source "$(dirname "$0")/../docker/.env"
+set +a
 
 echo "===== VERSIONES ====="
 docker --version
@@ -34,7 +37,7 @@ curl -s -o /dev/null -w "  HTTP %{http_code} en %{time_total}s\n" http://localho
 
 echo
 echo "===== BASE DE DATOS ====="
-docker exec mariadb mariadb -u root -p"${MYSQL_ROOT_PASSWORD:-root}" -e "SELECT 'MariaDB operativa' AS estado;" 2>/dev/null   && echo "  Conexion correcta" || echo "  No se pudo conectar a MariaDB"
+docker exec mariadb mariadb -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 'MariaDB operativa' AS estado;" 2>/dev/null   && echo "  Conexion correcta" || echo "  No se pudo conectar a MariaDB"
 
 echo
 echo "===== USO DE RECURSOS ====="
