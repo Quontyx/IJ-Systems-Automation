@@ -6,9 +6,12 @@ services:
       - "80:80"
     volumes:
       - ./nginx/index.html:/usr/share/nginx/html/index.html:ro
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       frontend:
         ipv4_address: 172.30.10.10
+      monitoring:
+        ipv4_address: 172.30.30.5
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
