@@ -1,4 +1,4 @@
-- name: Preparacion del servidor local
+- name: Preparacion y despliegue del servidor local
   hosts: servidor
   become: true
 
@@ -26,3 +26,32 @@
         name: "{{ usuario_local }}"
         groups: docker
         append: yes
+
+    - name: Clonar repositorio del proyecto
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ proyecto_dir }}"
+        version: main
+        force: yes
+      become_user: "{{ usuario_local }}"
+
+    - name: Copiar fichero de variables de entorno
+      copy:
+        src: files/.env
+        dest: "{{ proyecto_dir }}/docker/.env"
+        owner: "{{ usuario_local }}"
+        mode: '0600'
+
+    - name: Levantar servicios con Docker Compose
+      community.docker.docker_compose_v2:
+        project_src: "{{ proyecto_dir }}/docker"
+        state: present
+      become_user: "{{ usuario_local }}"
+
+    - name: Configurar cron de backup automatico
+      cron:
+        name: "Backup diario MariaDB"
+        minute: "0"
+        hour: "2"
+        job: "{{ proyecto_dir }}/scripts/backup.sh >> {{ proyecto_dir }}/backups/backup.log 2>&1"
+        user: "{{ usuario_local }}"
