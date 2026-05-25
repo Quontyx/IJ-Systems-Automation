@@ -2,34 +2,292 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IJ Systems Automation</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    /* HEADER */
+    header {
       text-align: center;
-      padding: 60px;
+      margin-bottom: 50px;
     }
-    .box {
-      background: white;
-      padding: 30px;
-      max-width: 700px;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
-    h1 {
-      color: #1f4e79;
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
+    header p {
+      color: #94a3b8;
+      margin-top: 8px;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 14px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* STATUS BAR */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a2332;
+      border: 1px solid #1e3a5f;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin-bottom: 40px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* CARDS */
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+
+    .card-nginx::before   { background: linear-gradient(90deg, #22c55e, #16a34a); }
+    .card-prom::before    { background: linear-gradient(90deg, #f97316, #ea580c); }
+    .card-cadvisor::before { background: linear-gradient(90deg, #38bdf8, #0284c7); }
+    .card-uptime::before  { background: linear-gradient(90deg, #f472b6, #db2777); }
+    .card-mariadb::before { background: linear-gradient(90deg, #818cf8, #6366f1); }
+    .card-node::before    { background: linear-gradient(90deg, #facc15, #ca8a04); }
+
+    .card:hover.card-nginx   { border-color: #22c55e; }
+    .card:hover.card-prom    { border-color: #f97316; }
+    .card:hover.card-cadvisor { border-color: #38bdf8; }
+    .card:hover.card-uptime  { border-color: #f472b6; }
+    .card:hover.card-mariadb { border-color: #818cf8; }
+    .card:hover.card-node    { border-color: #facc15; }
+
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+    }
+
+    .card .desc {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .card .port-tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+
+    .card-no-link {
+      cursor: default;
+    }
+
+    /* TECH STACK */
+    .tech-section {
+      margin-top: 50px;
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .tech-section h3 {
+      color: #475569;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .pill {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 50px;
+      color: #334155;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    footer span { color: #475569; }
   </style>
 </head>
 <body>
-  <div class="box">
+
+  <header>
+    <div class="logo">🚀</div>
     <h1>IJ Systems Automation</h1>
     <p>Despliegue automatizado con Bash, Ansible y Docker</p>
-    <p>Servidor Nginx funcionando correctamente</p>
-    <p>Proyecto TFG ASIR - Ian Gutiérrez Guertsen y Jaime Ferrari Zamorano</p>
+    <span class="badge">TFG ASIR 2026 · Ian Gutiérrez & Jaime Ferrari</span>
+  </header>
+
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <span>Todos los servicios operativos · Servidor <strong style="color:#e2e8f0">34.236.28.238</strong></span>
   </div>
+
+  <div class="grid">
+
+    <a class="card card-nginx card-no-link" href="#" onclick="return false;">
+      <div class="card-icon">🌐</div>
+      <h2>Nginx</h2>
+      <p class="desc">Servidor web principal. Sirve contenido estático y actúa como proxy inverso.</p>
+      <span class="port-tag">:80</span>
+    </a>
+
+    <a class="card card-prom" href="http://34.236.28.238:9090" target="_blank">
+      <div class="card-icon">📊</div>
+      <h2>Prometheus</h2>
+      <p class="desc">Sistema de monitoreo y alertas. Recopila métricas de todos los servicios.</p>
+      <span class="port-tag">:9090</span>
+    </a>
+
+    <a class="card card-cadvisor" href="http://34.236.28.238:8080" target="_blank">
+      <div class="card-icon">📈</div>
+      <h2>cAdvisor</h2>
+      <p class="desc">Análisis de rendimiento y uso de recursos de los contenedores Docker.</p>
+      <span class="port-tag">:8080</span>
+    </a>
+
+    <a class="card card-uptime" href="http://34.236.28.238:3001" target="_blank">
+      <div class="card-icon">💓</div>
+      <h2>Uptime Kuma</h2>
+      <p class="desc">Panel de monitoreo de disponibilidad. Alertas en tiempo real de servicios.</p>
+      <span class="port-tag">:3001</span>
+    </a>
+
+    <a class="card card-mariadb card-no-link" href="#" onclick="return false;">
+      <div class="card-icon">🗄️</div>
+      <h2>MariaDB</h2>
+      <p class="desc">Base de datos relacional. Motor de persistencia del sistema de monitoreo.</p>
+      <span class="port-tag">:3306</span>
+    </a>
+
+    <a class="card card-node card-no-link" href="#" onclick="return false;">
+      <div class="card-icon">🖥️</div>
+      <h2>Node Exporter</h2>
+      <p class="desc">Exportador de métricas del sistema host para Prometheus (CPU, RAM, disco).</p>
+      <span class="port-tag">:9100</span>
+    </a>
+
+  </div>
+
+  <div class="tech-section">
+    <h3>Stack tecnológico</h3>
+    <div class="tech-pills">
+      <span class="pill">🐚 Bash</span>
+      <span class="pill">⚙️ Ansible</span>
+      <span class="pill">🐳 Docker</span>
+      <span class="pill">🐧 Ubuntu 24.04</span>
+      <span class="pill">☁️ AWS EC2</span>
+      <span class="pill">🔒 SSH</span>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 <span>Ian Gutiérrez Guertsen & Jaime Ferrari Zamorano</span> · TFG ASIR</p>
+    <p style="margin-top:6px">Proyecto Final de Grado — Administración de Sistemas Informáticos en Red</p>
+  </footer>
+
 </body>
 </html>
