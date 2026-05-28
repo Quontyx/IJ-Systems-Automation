@@ -19,7 +19,7 @@
 
 ---
 
-Proyecto TFG de **ASIR** desarrollado por Ian Gutiérrez y Jaime, centrado en diseñar un entorno de infraestructura reproducible sobre Ubuntu que automatiza desde la preparación del host hasta el despliegue y monitorización de servicios en contenedores.
+Proyecto TFG de **ASIR** desarrollado por Ian Gutiérrez Guertsen y Jaime Ferrari Zamorano, centrado en diseñar un entorno de infraestructura reproducible sobre Ubuntu que automatiza desde la preparación del host hasta el despliegue y monitorización de servicios en contenedores.
 
 Un solo comando prepara el sistema, despliega los servicios y arranca la monitorización completa. Sin pasos manuales, sin configuraciones ocultas.
 
@@ -201,7 +201,7 @@ Las siguientes mejoras están planificadas como trabajo futuro:
 ## Autores
 
 - Ian Gutiérrez Guertsen — GitHub: **[@Quontyx](https://github.com/Quontyx)**
-- Jaime Ferrari Zamorano
+- Jaime Ferrari Zamorano — GitHub: **[@Quontyx](https://github.com/Quontyx)**
 
 ---
 
