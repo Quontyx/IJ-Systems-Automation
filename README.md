@@ -15,6 +15,7 @@
   <img alt="Prometheus" src="https://img.shields.io/badge/Prometheus-v3-E6522C?logo=prometheus&logoColor=white"/>
   <img alt="Ubuntu" src="https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu&logoColor=white"/>
   <img alt="License" src="https://img.shields.io/badge/licencia-CC%20BY--NC--ND%204.0-lightgrey?logo=creativecommons&logoColor=white"/>
+  <img alt="Version" src="https://img.shields.io/badge/versi%C3%B3n-v1.1.0-blue"/>
 </p>
 
 ---
