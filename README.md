@@ -201,7 +201,7 @@ Las siguientes mejoras están planificadas como trabajo futuro:
 ## Autores
 
 - Ian Gutiérrez Guertsen — GitHub: **[@Quontyx](https://github.com/Quontyx)**
-- Jaime Ferrari Zamorano — GitHub: **[@Quontyx](https://github.com/Quontyx)**
+- Jaime Ferrari Zamorano — GitHub: **[@jaime368](https://github.com/jaime368)**
 
 ---
 
